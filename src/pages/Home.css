@@ -173,6 +173,45 @@
   border-radius: 2px;
 }
 
+.hero-scroll-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  margin-top: 2.5rem;
+  background: rgba(47, 128, 237, 0.15);
+  border: 2px solid rgba(47, 128, 237, 0.4);
+  border-radius: 50px;
+  color: #A9C7FF;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.hero-scroll-button:hover {
+  background: rgba(47, 128, 237, 0.25);
+  border-color: #2F80ED;
+  color: white;
+  box-shadow: 0 8px 30px rgba(47, 128, 237, 0.3);
+  transform: translateY(-2px);
+}
+
+.hero-scroll-button:active {
+  transform: translateY(0);
+}
+
+.hero-scroll-button svg {
+  transition: transform 0.3s ease;
+}
+
+.hero-scroll-button:hover svg {
+  transform: translateY(4px);
+}
+
 /* What We Do Section */
 .what-we-do-section {
   padding: 5rem 0;
@@ -346,20 +385,26 @@
 
 /* Special styling for small logos */
 .platform-logo[src*="liqon"],
-.platform-logo[src*="verdict"],
-.platform-logo[src*="mirabody"] {
+.platform-logo[src*="verdict"] {
   height: 150px !important;
 }
 
 /* Special styling for Framegenix logo - larger size */
 .platform-logo[src*="framegenix"] {
-  height: 240px !important;
+  height: 280px !important;
+  max-width: 100%;
+}
+
+/* Special styling for Mirabody logo - larger size */
+.platform-logo[src*="mirabody"] {
+  height: 200px !important;
   max-width: 100%;
 }
 
 /* Keep card size consistent - allow logo to overflow wrapper if needed */
 .platform-logo-wrapper {
   overflow: visible;
+  min-height: 160px;
 }
 
 .platform-logo-fallback {

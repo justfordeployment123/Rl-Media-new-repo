@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Zap, Globe } from 'lucide-react';
+import { Zap, Globe, ArrowDown } from 'lucide-react';
 import { platforms } from '../data/platforms';
 import './Home.css';
 
@@ -12,6 +12,13 @@ const Home = () => {
     { icon: 'Globe', text: 'Create interoperable platforms that work together while operating independently.' },
     { icon: 'Zap', text: 'Enable governance and compliance at the infrastructure layer, not as an afterthought.' }
   ];
+
+  const scrollToPlatforms = () => {
+    const platformsSection = document.getElementById('platforms-section');
+    if (platformsSection) {
+      platformsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   return (
     <div className="home-page">
@@ -41,6 +48,18 @@ const Home = () => {
               {heroSubtitle}
             </p>
             <div className="hero-accent-line"></div>
+            <motion.button
+              className="hero-scroll-button"
+              onClick={scrollToPlatforms}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <span>View Our Platforms</span>
+              <ArrowDown size={20} />
+            </motion.button>
           </motion.div>
         </div>
       </section>
@@ -84,7 +103,7 @@ const Home = () => {
       </section>
 
       {/* Our Platforms Section */}
-      <section className="platforms-section">
+      <section id="platforms-section" className="platforms-section">
         <div className="container">
           <motion.h2
             className="section-title"
