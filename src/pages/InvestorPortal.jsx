@@ -4,6 +4,8 @@ import { Lock, FileText, Presentation, DollarSign, Mail } from 'lucide-react';
 import { platforms } from '../data/platforms';
 import './InvestorPortal.css';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+
 const InvestorPortal = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
@@ -23,19 +25,31 @@ const InvestorPortal = () => {
     setError('');
     setIsLoading(true);
     
-    setTimeout(() => {
-      const correctPassword = 'investor';
+    try {
+      const response = await fetch(`${API_URL}/api/verify-password`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password }),
+      });
       
-      if (password === correctPassword) {
+      const data = await response.json();
+      
+      if (data.success) {
         setIsAuthenticated(true);
         sessionStorage.setItem('investorAuth', 'authenticated');
         setPassword('');
       } else {
-        setError('Incorrect password. Please try again.');
+        setError(data.message || 'Incorrect password. Please try again.');
         setPassword('');
       }
+    } catch (error) {
+      console.error('Error verifying password:', error);
+      setError('Unable to connect to server. Please try again later.');
+    } finally {
       setIsLoading(false);
-    }, 500);
+    }
   };
 
   const handleLogout = () => {
