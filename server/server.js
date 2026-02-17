@@ -11,7 +11,14 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Middleware
-app.use(cors());
+// CORS configuration - allow frontend domain
+const corsOptions = {
+  origin: process.env.FRONTEND_URL || '*', // Allow all in dev, set FRONTEND_URL in production
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Path to password file
@@ -85,6 +92,19 @@ app.get('/api/password-status', (req, res) => {
     success: true, 
     hasPassword: !!password,
     passwordLength: password ? password.length : 0
+  });
+});
+
+// Catch-all for non-API routes - inform user this is backend only
+app.get('*', (req, res) => {
+  res.status(404).json({
+    error: 'Not Found',
+    message: 'This is the backend API server. Frontend routes should be accessed through the frontend application.',
+    availableEndpoints: [
+      'POST /api/verify-password',
+      'POST /api/change-password',
+      'GET /api/password-status'
+    ]
   });
 });
 
