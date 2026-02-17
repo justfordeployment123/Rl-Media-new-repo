@@ -5,6 +5,9 @@ import './PasswordAdmin.css';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
+// Log API URL for debugging (remove in production)
+console.log('Backend API URL:', API_URL);
+
 const PasswordAdmin = () => {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -23,13 +26,20 @@ const PasswordAdmin = () => {
 
   const fetchPasswordStatus = async () => {
     try {
+      console.log('Fetching password status from:', `${API_URL}/api/password-status`);
       const response = await fetch(`${API_URL}/api/password-status`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       const data = await response.json();
       if (data.success) {
         setPasswordStatus(data);
       }
     } catch (error) {
       console.error('Error fetching password status:', error);
+      console.error('API_URL is:', API_URL);
     }
   };
 

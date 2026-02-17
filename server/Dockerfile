@@ -7,16 +7,13 @@ RUN apk add --no-cache wget
 # Set working directory
 WORKDIR /app
 
-# Create a minimal package.json for backend dependencies only
-# This avoids needing the parent package.json
-RUN echo '{"name":"rl-media-backend","version":"1.0.0","type":"module","dependencies":{"express":"^4.18.2","cors":"^2.8.5"}}' > package.json
+# Copy package.json and server files (when build context is server/)
+COPY package.json ./
+COPY server.js ./
+COPY password.json ./password.json
 
 # Install only production dependencies needed for backend
 RUN npm install --production --no-optional
-
-# Copy server files (when build context is server/)
-COPY server.js ./
-COPY password.json ./password.json
 
 # Create healthcheck script that checks port 5000 (Coolify default) or 3001
 RUN echo '#!/bin/sh' > /app/healthcheck.sh && \

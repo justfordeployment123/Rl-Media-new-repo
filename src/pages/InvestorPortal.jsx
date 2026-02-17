@@ -6,6 +6,9 @@ import './InvestorPortal.css';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
+// Log API URL for debugging (remove in production)
+console.log('Backend API URL:', API_URL);
+
 const InvestorPortal = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
@@ -26,6 +29,7 @@ const InvestorPortal = () => {
     setIsLoading(true);
     
     try {
+      console.log('Verifying password with API:', `${API_URL}/api/verify-password`);
       const response = await fetch(`${API_URL}/api/verify-password`, {
         method: 'POST',
         headers: {
@@ -33,6 +37,10 @@ const InvestorPortal = () => {
         },
         body: JSON.stringify({ password }),
       });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       
       const data = await response.json();
       
@@ -46,7 +54,8 @@ const InvestorPortal = () => {
       }
     } catch (error) {
       console.error('Error verifying password:', error);
-      setError('Unable to connect to server. Please try again later.');
+      console.error('API_URL is:', API_URL);
+      setError(`Unable to connect to server: ${error.message}. Please check your connection and try again.`);
     } finally {
       setIsLoading(false);
     }
