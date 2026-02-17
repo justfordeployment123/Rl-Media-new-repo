@@ -96,16 +96,25 @@ app.get('/api/password-status', (req, res) => {
 });
 
 // Catch-all for non-API routes - inform user this is backend only
-app.get('*', (req, res) => {
-  res.status(404).json({
-    error: 'Not Found',
-    message: 'This is the backend API server. Frontend routes should be accessed through the frontend application.',
-    availableEndpoints: [
-      'POST /api/verify-password',
-      'POST /api/change-password',
-      'GET /api/password-status'
-    ]
-  });
+// Use a function to handle all unmatched routes
+app.use((req, res) => {
+  // Only handle non-API routes
+  if (!req.path.startsWith('/api')) {
+    res.status(404).json({
+      error: 'Not Found',
+      message: 'This is the backend API server. Frontend routes should be accessed through the frontend application.',
+      availableEndpoints: [
+        'POST /api/verify-password',
+        'POST /api/change-password',
+        'GET /api/password-status'
+      ]
+    });
+  } else {
+    res.status(404).json({
+      error: 'Not Found',
+      message: 'API endpoint not found'
+    });
+  }
 });
 
 const HOST = process.env.HOST || '0.0.0.0';
