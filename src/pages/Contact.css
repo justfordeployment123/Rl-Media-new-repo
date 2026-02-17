@@ -266,9 +266,15 @@
   border-bottom: 1px solid rgba(47, 128, 237, 0.1);
 }
 
+.reasons-section .container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
 .reasons-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
   margin-top: 3rem;
 }
@@ -314,6 +320,12 @@
   background: var(--bg-primary);
 }
 
+.contact-blocks-section .container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
 .section-header {
   text-align: center;
   margin-bottom: 1rem;
@@ -336,9 +348,12 @@
 
 .contact-blocks-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 3rem;
   margin-top: 3rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .contact-block-card {
@@ -465,6 +480,18 @@
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+  .contact-blocks-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+  
+  .reasons-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
 @media (max-width: 768px) {
   .reasons-section {
     padding: 4rem 1.5rem;
@@ -491,6 +518,11 @@
   .block-icon {
     font-size: 2.5rem;
     margin-bottom: 1rem;
+  }
+  
+  .contact-blocks-section .container,
+  .reasons-section .container {
+    padding: 0 1rem;
   }
 }
 

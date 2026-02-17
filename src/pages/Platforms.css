@@ -156,6 +156,12 @@
   background: linear-gradient(90deg, transparent, rgba(47, 128, 237, 0.3), transparent);
 }
 
+.platforms-list-section .container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
 .platforms-list {
   max-width: 1000px;
   margin: 0 auto;
@@ -173,6 +179,13 @@
   padding: 2.5rem 0;
   transition: all 0.3s ease;
   position: relative;
+}
+
+@media (max-width: 1024px) {
+  .platform-item-content {
+    grid-template-columns: 180px 1fr;
+    gap: 2rem;
+  }
 }
 
 .platform-item-content::before {
@@ -270,6 +283,12 @@
   margin: 0;
 }
 
+@media (max-width: 1024px) {
+  .platforms-list-section .container {
+    padding: 0 1.5rem;
+  }
+}
+
 @media (max-width: 768px) {
   .platforms-hero {
     min-height: 40vh;
@@ -310,6 +329,10 @@
     max-width: 150px;
     max-height: 80px;
   }
+  
+  .platforms-list-section .container {
+    padding: 0 1rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -337,6 +360,12 @@
   border-bottom: 1px solid rgba(47, 128, 237, 0.1);
 }
 
+.ecosystem-intro-section .container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
 .section-title {
   font-size: clamp(2rem, 4vw, 2.75rem);
   font-weight: 700;
@@ -348,10 +377,11 @@
 
 .ecosystem-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 2.5rem;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 2rem;
 }
 
 .ecosystem-card {
@@ -360,6 +390,9 @@
   border: 1px solid rgba(47, 128, 237, 0.15);
   border-left: 3px solid var(--accent-color);
   transition: all 0.3s ease;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .ecosystem-card:hover {
@@ -678,13 +711,35 @@
 }
 
 /* Responsive Adjustments for New Sections */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+  .ecosystem-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  
+  .ecosystem-card {
+    padding: 2rem;
+  }
+  
+  .ecosystem-intro-section .container,
+  .platforms-list-section .container {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
   .ecosystem-grid {
     grid-template-columns: 1fr;
+    padding: 0 1rem;
   }
 
   .ecosystem-card {
     padding: 2rem;
+  }
+  
+  .ecosystem-intro-section .container,
+  .platforms-list-section .container {
+    padding: 0 1rem;
   }
 
   .platform-tabs {
